@@ -2,6 +2,6 @@
 for numero1 in range(0, 10):
     for numero2 in range(numero1 + 1, 10):
         if numero1 != 8 or numero2 != 9:
-            print(f"{numero1}{numero2}", end=", ")
+            print("{}{}".format(numero1, numero2), end=", ")
         else:
-            print(f"{numero1}{numero2}")
+            print("{}{}".format(numero1, numero2))
