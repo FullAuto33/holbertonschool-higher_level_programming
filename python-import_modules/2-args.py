@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import sys
+from sys import argv
 if __name__ == "__main__":
     compteur = len(sys.argv) - 1
     if compteur == 0:
