@@ -5,4 +5,4 @@ if __name__ == "__main__":
     taille = len(sys.argv)
     for i in range(1, taille):
         somme = somme + int(sys.argv[i])
-    print (somme)
+    print(somme)
