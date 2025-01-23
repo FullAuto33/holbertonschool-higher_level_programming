@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 def max_integer(my_list=[]):
     taille = len(my_list)
-    if not size:
+    if not taille:
         return None
     else:
         compteur = my_list[0]
