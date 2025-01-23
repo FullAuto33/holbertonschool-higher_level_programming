@@ -4,4 +4,4 @@ def multiple_returns(sentence):
     if not sentence:
         return (taille, None)
     else:
-        return (size, sentence[0])
+        return (taille, sentence[0])
