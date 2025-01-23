@@ -7,4 +7,4 @@ def add_tuple(tuple_a=(), tuple_b=()):
     while len(listb) < 2:
         listb.append(0)
     result = [lista[0] + listb[0], lista[1] + listb[1]]
-    return(tuple(result))
+    return (tuple(result))
