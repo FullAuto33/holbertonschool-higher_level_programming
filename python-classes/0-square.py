@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-"""Description module empty classes"""
-class Square:
+"""Description module empty classes"""class Square:
     """class Square"""
     pass
