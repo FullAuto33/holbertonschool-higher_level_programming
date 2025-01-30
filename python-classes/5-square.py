@@ -27,7 +27,6 @@ class Square:
             raise ValueError("size must be >= 0")
         self.__size = value
 
-
     def my_print(self):
         """Fucntion print square with #"""
         for i in range(0, self.__size):
