@@ -1,0 +1,19 @@
+#!/usr/bin/python3
+"""Description module Square"""
+
+
+class Square:
+    """Class of Square"""
+    def __init__(self, size=0):
+        """ definie a square"""
+        self.__size = size
+
+    def area(self):
+        """returns the current square area"""
+        result = self.__size * self.__size
+        return (result)
+
+        @property
+    def size(self):
+        """Getter method"""
+        return self.__size
