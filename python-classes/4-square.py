@@ -18,7 +18,7 @@ class Square:
         """return size of square"""
         return self.__size
 
-     @size.setter
+    @size.setter
     def size(self, value):
         """Size verify if int"""
         if not isinstance(value, int):
