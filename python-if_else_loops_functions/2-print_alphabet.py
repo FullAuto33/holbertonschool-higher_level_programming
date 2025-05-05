@@ -1,2 +1,4 @@
 #!/usr/bin/python3
-print("abcdefghijklmnopqrstuvwxyz", end="")
+str = "abcdefghijklmnopqrstuvwxyz"
+for i in range(0, len(str)):
+    print(str[i], end="")
