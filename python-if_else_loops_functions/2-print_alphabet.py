@@ -1,4 +1,3 @@
 #!/usr/bin/python3
-str = "abcdefghijklmnopqrstuvwxyz"
-for i in range(0, len(str)):
-    print(str[i], end="")
+for letter in range(97, 123):
+    print(chr(letter), end="")
