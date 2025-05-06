@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 def fizzbuzz():
-    """Print the numbers from 1 to 100, but for multiples of three print Fizz instead of the number and for the multiples of five print Buzz. For numbers which are multiples of both three and five print FizzBuzz."""
+    """Print the numbers from 1 to 100 and print Fizz for multiples of 3,
+    Buzz for multiples of 5, and FizzBuzz for multiples of both 3 and 5."""
     for i in range(1, 101):
         if i % 3 == 0 and i % 5 == 0:
             print("FizzBuzz", end=' ')
