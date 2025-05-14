@@ -16,9 +16,16 @@ def roman_to_int(roman_string):
             'M': 1000  # M = 1000
         }
         result = 0  # Initialisation de result à 0
+        chiffreavant = 0  # Initialisation de chiffreavant à 0
         for char in roman_string:  # Pour chaque caractère dans roman_string
-            if char not in romannumber:  # Si le caractère n'est pas dans romannumber
-                return 0  # Retourne 0
-            current_value = romannumber[char]  # Récupère la valeur actuelle
-            result += current_value  # Ajoute la valeur actuelle
-        return result
+            value = romannumber[char]
+            # On récupère la valeur correspondante dans le dictionnaire
+            if value > chiffreavant:
+                # Si la valeur est supérieure à chiffreavant
+                result += value - 2 * chiffreavant
+                # On soustrait 2 fois chiffreavant au resultat
+            else:  # Sinon
+                result += value  # On ajoute la valeur au resultat
+            chiffreavant = value
+            # On met à jour chiffreavant avec la valeur actuelle
+        return result  # On retourne le resultat final
