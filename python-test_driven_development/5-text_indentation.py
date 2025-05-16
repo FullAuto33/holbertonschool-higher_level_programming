@@ -11,4 +11,4 @@ def text_indentation(text):
         new_text += text[i]  # Ajoute le caractère à la nouvelle chaîne
         if text[i] in ".?:":  # Si le caractère est ., ? ou :
             new_text += "\n\n"  # Ajoute deux nouvelles lignes
-    print(new_text.strip())  # Affiche la nouvelle chaîne sans espaces vides
+    print(new_text.strip(), end="")  # Affiche la nouvelle chaîne sans espaces vides
