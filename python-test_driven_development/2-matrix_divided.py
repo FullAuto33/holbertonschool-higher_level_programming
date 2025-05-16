@@ -11,13 +11,13 @@ def matrix_divided(matrix, div):
         # Retourne typeError si ce n'est pas une liste de listes
     if not all(isinstance(row, list) for row in matrix):
         # verifie si chaque element de la matrice est une liste
-        raise TypeError("matrix must be a matrix\
-        (list of lists) of integers/floats")
+        raise TypeError("matrix must be a \
+        matrix (list of lists) of integers/floats")
         # Retourne typeError si ce n'est pas une liste de listes
     if not all(isinstance(num, (int, float)) for row in matrix for num in row):
         # verifie si c'est une liste de listes d'entiers ou de flottants
-        raise TypeError("matrix must be a matrix\
-        (list of lists) of integers/floats")
+        raise TypeError("matrix \
+        must be a matrix (list of lists) of integers/floats")
         # Retourne typeError si c'est pas entier ou flottant
     if div == 0:  # Si div est égal à 0
         raise ZeroDivisionError("division by zero")
