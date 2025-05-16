@@ -5,6 +5,7 @@
     retourne une exception
     sinon convertit les arguments en entiers et retourne la somme"""
 
+
 def add_integer(a, b=98):
     """ Retourne la somme de deux entier
         Argument:
