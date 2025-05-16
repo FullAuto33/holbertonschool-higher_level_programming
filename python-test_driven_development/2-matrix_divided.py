@@ -4,9 +4,13 @@
 
 def matrix_divided(matrix, div):
     """Divides all elements of a matrix by a number"""
-    if not isinstance(matrix, list)
-    or not all(isinstance(row, list) for row in matrix):
+    if not isinstance(matrix, list):
         # verifie si c'est une liste de listes
+        raise TypeError("matrix must be a matrix\
+        (list of lists) of integers/floats")
+        # Retourne typeError si ce n'est pas une liste de listes
+    if not all(isinstance(row, list) for row in matrix):
+        # verifie si chaque element de la matrice est une liste
         raise TypeError("matrix must be a matrix\
         (list of lists) of integers/floats")
         # Retourne typeError si ce n'est pas une liste de listes
