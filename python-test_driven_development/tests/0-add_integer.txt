@@ -1,0 +1,13 @@
+>>> add_integer = __import__('0-add_integer').add_integer
+
+>>> add_integer(0,0)
+0
+
+>>> add_integer(1, 2)
+3
+
+>>> add_integer(hello, 2)
+TypeError("a must be an integer")
+
+>>> add_integer(4, hello)
+TypeError("b must be an integer")
