@@ -9,8 +9,3 @@ def add_integer(a, b=98):
         raise TypeError("b must be an integer")
         # Retourne message d'erreur
     return int(a) + int(b)  # Retourne la somme de a et b
-
-# Doctest:
-
-add_integer(1, 2)
-add_integer(100, -2)

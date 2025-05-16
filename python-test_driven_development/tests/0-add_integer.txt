@@ -6,8 +6,25 @@
 >>> add_integer(1, 2)
 3
 
->>> add_integer(hello, 2)
-TypeError("a must be an integer")
+>>> add_integer(100)
+198
 
->>> add_integer(4, hello)
-TypeError("b must be an integer")
+>>> add_integer("hello",2)
+Traceback (most recent call last):
+TypeError: a must be an integer
+
+>>> add_integer(2,"hello")
+Traceback (most recent call last):
+TypeError: b must be an integer
+
+>>> add_integer()
+Traceback (most recent call last):
+TypeError: add_integer() missing 1 required positional argument: 'a'
+
+>>> add_integer(float('inf'), 3)
+Traceback (most recent call last):
+OverflowError: cannot convert float infinity to integer
+
+>>> add_integer(float('hello'), 4)
+Traceback (most recent call last):
+ValueError: could not convert string to float: 'hello'
