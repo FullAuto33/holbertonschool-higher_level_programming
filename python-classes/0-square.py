@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Create a empty class Square"""
 
 
 class Square:
