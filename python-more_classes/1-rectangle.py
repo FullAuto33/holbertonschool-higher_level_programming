@@ -25,7 +25,7 @@ class Rectangle:
             raise ValueError("width must be >= 0")
         self.__width = value
         pass
-    
+
     @property
     def height(self):
         """Retrieve for height"""
