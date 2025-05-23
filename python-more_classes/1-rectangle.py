@@ -13,7 +13,7 @@ class Rectangle:
     @property
     def width(self):
         """Retrieve for width"""
-        return self.__width
+        return self.width
         pass
 
     @width.setter
@@ -25,7 +25,7 @@ class Rectangle:
             raise ValueError("width must be >= 0")
         self.__width = value
         pass
-
+    
     @property
     def height(self):
         """Retrieve for height"""
