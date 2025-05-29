@@ -37,9 +37,9 @@ class Square(Rectangle):
     """Square ineherit from Rectangle."""
     def __init__(self, size):
         """Init square with size"""
-        super().__init__(size, size)  # On appelle init de la classe parent
         self.integer_validator("size", size)
         self.__size = size
+        super().__init__(size, size)  # On appelle init de la classe parent
 
     def area(self):
         """Return the area of the square."""
