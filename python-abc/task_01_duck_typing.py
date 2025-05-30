@@ -59,3 +59,9 @@ def shape_info(shape):
 
     print("Area: {}" .format(shape.area()))
     print("Perimeter: {}" .format(shape.perimeter()))
+
+if __name__ == "__main__":
+    cercle = Circle(radius=10)
+    rectangle = Rectangle(width=5, height=10)
+    shape_info(cercle)
+    shape_info(rectangle)
