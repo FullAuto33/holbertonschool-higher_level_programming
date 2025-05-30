@@ -35,11 +35,11 @@ class FlyingFish(Fish, Bird):
 
     def fly(self):
         """Override fly method"""
-        print("The flying fish is flying!")
+        print("The flying fish is soaring!")
 
     def habitat(self):
         """Override habitat method"""
-        print("The flying fish lives in both water and sky!")
+        print("The flying fish lives both in water and the sky!")
 
 
 if __name__ == "__main__":
