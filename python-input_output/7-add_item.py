@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Load, add, save"""
 import json
+import sys
 
 
 def save_to_json_file(my_obj, filename):
@@ -20,8 +21,6 @@ try:
     items = load_from_json_file(filename)
 except FileNotFoundError:
     items = []
-import sys
 for arg in sys.argv[1:]:
     items.append(arg)
 save_to_json_file(items, filename)
-
