@@ -8,4 +8,3 @@ def class_to_json(obj):
     if hasattr(obj, "__dict__"):
         resultat = obj.__dict__
     return resultat
-
