@@ -5,8 +5,8 @@ import json
 
 def class_to_json(obj):
     """Class to JSON"""
-    obj = {}
+    resultat = {}
     if hasattr(obj, "__dict__"):
-        obj = obj.__dict__
-    return obj
+        resultat = obj.__dict__
+    return resultat
 
