@@ -13,23 +13,30 @@ class SimpleHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", "application/json")
             self.end_headers()
-            response = {"name": "John", "age": 30, "city": "New York"}
-            self.wfile.write(json.dumps(response).encode())
+            data = {
+                "name": "John",
+                "age": 30,
+                "city": "New York"
+            }
+            self.wfile.write(json.dumps(data).encode('utf-8'))
 
         elif self.path == "/status":
             self.send_response(200)
             self.send_header("Content-type", "application/json")
             self.end_headers()
-            self.wfile.write(json.dumps({"status": "OK"}).encode())
+            self.wfile.write(json.dumps({"status": "OK"}).encode('utf-8'))
 
         else:
             self.send_response(404)
             self.send_header("Content-type", "application/json")
             self.end_headers()
-            self.wfile.write(json.dumps({"error": "Endpoint not found"}).encode())
+            self.wfile.write(json.dumps({"error": "Endpoint not found"}).encode('utf-8'))
 
 def run():
-    server_address = ("", 8000)
+    server_address = ('', 8000)
     httpd = HTTPServer(server_address, SimpleHandler)
     print("Server running at http://localhost:8000")
     httpd.serve_forever()
+
+if __name__ == "__main__":
+    run()
