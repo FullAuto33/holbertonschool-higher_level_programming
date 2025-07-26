@@ -19,13 +19,13 @@ def matrix_divided(matrix, div):
         # verifie si c'est une liste de listes d'entiers ou de flottants
         raise TypeError(messageerreur)
         # Retourne typeError si c'est pas entier ou flottant
-    if div == 0:  # Si div est égal à 0
-        raise ZeroDivisionError("division by zero")
-        # Retourne ZeroDivisionError si div est égal à 0
     if not isinstance(div, (int, float)):
         # verifie si div est un entier ou un flottant
         raise TypeError("div must be a number")
         # Retourne typeError si div n'est pas un entier ou un flottant
+    if div == 0:  # Si div est égal à 0
+        raise ZeroDivisionError("division by zero")
+        # Retourne ZeroDivisionError si div est égal à 0
     if len(matrix) == 0 or len(matrix[0]) == 0:
         # Si la matrice est vide ou si la première ligne est vide
         return []  # Retourne une matrice vide
