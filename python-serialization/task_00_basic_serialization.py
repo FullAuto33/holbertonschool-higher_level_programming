@@ -4,7 +4,7 @@
 import json
 
 
-def serialize_to_json_file(my_obj, filename):
+def serialize_and_save_to_file(my_obj, filename):
     """Ecrit un objet Python dans un fichier JSON. serialization"""
     with open(filename, "w") as file:
         # Ouvre le fichier en mode écriture
