@@ -13,8 +13,7 @@ class Student:
 
     def to_json(self, attrs=None):
         """Returns the dictionary representation of the Student."""
-        if isinstance(attrs, list) and
-        all(isinstance(x, str) for x in attrs):
+        if isinstance(attrs, list) and all(isinstance(x, str) for x in attrs):
             # Si attrs est une liste de chaînes
             my_dict = {}
             # Dictionnaire pour stocker les attributs sélectionnés
