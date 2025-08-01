@@ -19,6 +19,6 @@ if __name__ == "__main__":
         session.query(State)
         .filter(State.name.like('%a%'))
         .order_by(State.id):
-        print("{}: {}".format(state.id, state.name)))
+            print("{}: {}".format(state.id, state.name)))
 
     session.close()
