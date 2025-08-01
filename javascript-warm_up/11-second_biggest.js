@@ -1,21 +1,21 @@
 #!/usr/bin/node
 
-const argument = process.argv.slice(2).map(Number);
+const args = process.argv.slice(2).map(Number);
 
-if (argument.length < 2) {
+if (args.length < 2) {
   console.log(0);
 } else {
-  let maximum = Number.MIN_SAFE_INTEGER;
-  let twomax = Number.MIN_SAFE_INTEGER;
+  let max = Number.MIN_SAFE_INTEGER;
+  let secondMax = Number.MIN_SAFE_INTEGER;
 
-  for (let i = 0; i < argument.length; i++) {
-    if (argument[i] > maximum) {
-      twomax = maximum;
-      max = argument[i];
-    } else if (argument[i] > twomax && argument[i] < maximum) {
-      twomax = argument[i];
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] > max) {
+      secondMax = max;
+      max = args[i];
+    } else if (args[i] > secondMax && args[i] < max) {
+      secondMax = args[i];
     }
   }
 
-  console.log(twomax);
+  console.log(secondMax);
 }
