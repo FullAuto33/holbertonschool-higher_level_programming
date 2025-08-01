@@ -9,7 +9,8 @@ if __name__ == "__main__":
     database = sys.argv[3]
 
     # Connect to the database
-    db = MySQLdb.connect(host="localhost",
+    db = MySQLdb.connect(
+        host="localhost",
         user=username,
         passwd=password,
         db=database
