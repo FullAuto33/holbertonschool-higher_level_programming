@@ -1,6 +1,5 @@
 #!/usr/bin/node
 const num = parseInt(process.argv[2]);
-const num = parseFloat(input);
 const intNum = Math.floor(num);
 
 if (isNaN(num)) {
