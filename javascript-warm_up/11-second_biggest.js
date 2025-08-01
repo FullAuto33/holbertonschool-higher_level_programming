@@ -9,10 +9,10 @@ if (argument.length < 2) {
   let twomax = Number.MIN_SAFE_INTEGER;
 
   for (let i = 0; i < argument.length; i++) {
-    if (argument[i] > max) {
-      twomax = max;
+    if (argument[i] > maximum) {
+      twomax = maximum;
       max = argument[i];
-    } else if (argument[i] > twomax && argument[i] < max) {
+    } else if (argument[i] > twomax && argument[i] < maximum) {
       twomax = argument[i];
     }
   }
