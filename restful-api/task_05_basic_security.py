@@ -3,6 +3,7 @@
 
 from flask import Flask, jsonify, request, abort
 from flask_httpauth import HTTPBasicAuth
+from flask_jwt_extended import get_jwt_identity
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required
 
@@ -17,7 +18,7 @@ users = {
         "username": "user1",
         "password": generate_password_hash("password1"),
         "role": "user"
-    }
+    },
     "admin1": {
         "username": "admin1",
         "password": generate_password_hash("adminpass"),
