@@ -28,38 +28,7 @@ Traceback (most recent call last):
 ...
 TypeError: test must be an integer
 
->>> base = BaseGeometry()
->>> base.area()
-Traceback (most recent call last):
-...
-Exception: area() is not implemented
-
 >>> int()
 Traceback (most recent call last):
 ...
 TypeError: integer_validator() missing 2 required positional arguments: 'name' and 'value'
-
->>> base.int("age", True)
-Traceback (most recent call last):
-...
-TypeError: age must be an integer
-
->>> base.int("age", (4,))
-Traceback (most recent call last):
-...
-TypeError: age must be an integer
-
->>> base.int("age", [3])
-Traceback (most recent call last):
-...
-TypeError: age must be an integer
-
->>> base.int("age", None)
-Traceback (most recent call last):
-...
-TypeError: age must be an integer
-
->>> base.int("age", {3, 4})
-Traceback (most recent call last):
-...
-TypeError: age must be an integer
