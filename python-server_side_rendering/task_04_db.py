@@ -23,9 +23,30 @@ def products():
 
     # Si la source est un fichier CSV
     elif source == "csv":
-        with open("products.csv", "r") as f:
-            reader = csv.DictReader(f)  # Lecture des lignes sous forme de dictionnaires
-            data = list(reader)         # Conversion en liste
+    try:
+        # Ouverture du fichier CSV en mode lecture avec encodage UTF-8
+        with open("products.csv", "r", encoding="utf-8") as f:
+            # On utilise DictReader pour lire chaque ligne sous forme de dictionnaire
+            reader = csv.DictReader(f)
+            data = []  # Liste vide pour stocker les produits valides
+
+            # Parcours de chaque ligne (produit) du fichier CSV
+            for row in reader:
+                # Vérifie que toutes les colonnes nécessaires sont présentes
+                if "id" in row and "name" in row and "category" in row and "price" in row:
+                    # Ajoute le produit à la liste après avoir retiré les espaces inutiles
+                    data.append({
+                        "id": row["id"].strip(),
+                        "name": row["name"].strip(),
+                        "category": row["category"].strip(),
+                        "price": row["price"].strip()
+                    })
+    except FileNotFoundError:
+        # Si le fichier CSV n'est pas trouvé, on affiche une erreur dans le template
+        return render_template("product_display.html", error="CSV file not found")
+    except Exception as e:
+        # En cas d'erreur générale lors de la lecture du fichier, on affiche un message d'erreur
+        return render_template("product_display.html", error=f"CSV error: {str(e)}")
 
     # Si la source est une base de données SQLite
     elif source == 'sql':
