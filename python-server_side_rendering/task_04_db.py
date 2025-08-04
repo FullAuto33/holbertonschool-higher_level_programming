@@ -1,99 +1,120 @@
 # On importe les bibliotheques
-from flask import Flask, render_template, request     # Flask pour le serveur web, render_template pour afficher un template HTML, request pour récupérer les paramètres d'URL
+from flask import Flask, render_template, request     # Flask pour le serveur, render_template pour afficher du HTML, request pour récupérer les paramètres d'URL
+import sqlite3                                        # Pour accéder à la base de données SQLite
 import json                                           # Pour lire les fichiers JSON
 import csv                                            # Pour lire les fichiers CSV
-import sqlite3                                        # Pour se connecter à une base de données SQLite
+import os                                             # Pour vérifier l'existence de fichiers
 
-# On initialise l'application
+# On initialise l'app
 app = Flask(__name__)
 
-# initialise le chemin pour aller au produit
+# Chemin pour la page d'accueil
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+# Chemin pour la page À propos
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+# Chemin pour la page de contact
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+# Chemin pour afficher les items à partir d’un fichier JSON
+@app.route('/items')
+def items():
+    try:
+        # Ouverture du fichier items.json
+        with open('items.json') as f:
+            data = json.load(f)  # Chargement du contenu JSON
+        items = data.get('items', [])  # Récupération de la clé items
+        return render_template('items.html', items=items)
+    except FileNotFoundError:
+        return "Items file not found", 404  # Erreur si fichier introuvable
+    except json.JSONDecodeError:
+        return "Error decoding JSON", 500  # Erreur si le JSON est mal formé
+
+# Fonction utilitaire pour lire un fichier JSON
+def read_json(file_path):
+    with open(file_path, 'r') as file:
+        return json.load(file)
+
+# Fonction utilitaire pour lire un fichier CSV
+def read_csv(file_path):
+    products = []  # Liste de produits
+    with open(file_path, 'r') as file:
+        reader = csv.DictReader(file)  # Lecture ligne par ligne sous forme de dictionnaire
+        for row in reader:
+            row['id'] = int(row['id'])              # Conversion de l'ID en entier
+            row['price'] = float(row['price'])      # Conversion du prix en float
+            products.append(row)
+    return products
+
+# Fonction pour récupérer les données depuis la base SQLite
+def fetch_data_from_sqlite():
+    conn = sqlite3.connect('products.db')           # Connexion à la base SQLite
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM Products')        # Requête SQL pour tous les produits
+    rows = cursor.fetchall()                        # Récupération des résultats
+    conn.close()                                    # Fermeture de la connexion
+
+    products = []
+    for row in rows:
+        product = {
+            'id': row[0],
+            'name': row[1],
+            'category': row[2],
+            'price': row[3]
+        }
+        products.append(product)
+
+    print(products)  # Affichage en console (debug)
+    return products
+
+# Route principale pour afficher les produits depuis JSON, CSV ou SQL
 @app.route('/products')
 def products():
-    # Récupération des paramètres d'URL
-    source = request.args.get("source")
-    product_id = request.args.get("id")
+    source = request.args.get('source')       # Récupération de la source depuis l'URL 
+    product_id = request.args.get('id')       # Récupération de l'ID si précisé
 
-    data = []  # Liste vide qui contiendra les produits chargés
+    file_path = ''  # Chemin du fichier
 
-    # Si la source est un fichier JSON
-    if source == "json":
-        with open("products.json", "r") as f:
-            data = json.load(f)  # Chargement des données JSON
-
-    # Si la source est un fichier CSV
-    elif source == "csv":
-    try:
-        # Ouverture du fichier CSV en mode lecture avec encodage UTF-8
-        with open("products.csv", "r", encoding="utf-8") as f:
-            # On utilise DictReader pour lire chaque ligne sous forme de dictionnaire
-            reader = csv.DictReader(f)
-            data = []  # Liste vide pour stocker les produits valides
-
-            # Parcours de chaque ligne (produit) du fichier CSV
-            for row in reader:
-                # Vérifie que toutes les colonnes nécessaires sont présentes
-                if "id" in row and "name" in row and "category" in row and "price" in row:
-                    # Ajoute le produit à la liste après avoir retiré les espaces inutiles
-                    data.append({
-                        "id": row["id"].strip(),
-                        "name": row["name"].strip(),
-                        "category": row["category"].strip(),
-                        "price": row["price"].strip()
-                    })
-    except FileNotFoundError:
-        # Si le fichier CSV n'est pas trouvé, on affiche une erreur dans le template
-        return render_template("product_display.html", error="CSV file not found")
-    except Exception as e:
-        # En cas d'erreur générale lors de la lecture du fichier, on affiche un message d'erreur
-        return render_template("product_display.html", error=f"CSV error: {str(e)}")
-
-    # Si la source est une base de données SQLite
+    # Détermination du fichier en fonction de la source
+    if source == 'json':
+        file_path = 'products.json'
+    elif source == 'csv':
+        file_path = 'products.csv'
     elif source == 'sql':
-        products = from_sql()  # Appel de la fonction personnalisée pour récupérer les données SQL
-        if products is None:
-            # S'il y a une erreur SQL, on affiche une erreur dans le template
-            return render_template('product_display.html', error="Database error", products=[])
-        else:
-            data = products  # On récupère les données SQL dans data
-
-    # Si la source n’est pas reconnue
+        products = fetch_data_from_sqlite()  # Récupération depuis SQL
     else:
-        return render_template("product_display.html", error="Wrong source")
+        return render_template('product_display.html', error="Wrong source")  # Source invalide
 
-    # Si un identifiant est fourni, on filtre la liste des produits pour ne garder que celui qui correspond
+    # Vérifie si le fichier JSON ou CSV existe (si ce n'est pas une source SQL)
+    if source != 'sql' and not os.path.exists(file_path):
+        return render_template('product_display.html', error="File not found")
+
+    # Lecture du contenu en fonction du format
+    if source == 'json':
+        products = read_json(file_path)
+    elif source == 'csv':
+        products = read_csv(file_path)
+
+    # Filtrage par ID si fourni
     if product_id:
-        data = [item for item in data if str(item.get("id")) == product_id or str(item.get("id")) == str(product_id)]
-        if not data:
-            return render_template("product_display.html", error="Product not found")  # Si aucun produit trouvé avec cet ID
+        try:
+            product_id = int(product_id)  # Conversion en entier
+            products = [p for p in products if p['id'] == product_id]  # Filtrage
+            if not products:
+                return render_template('product_display.html', error="Product not found")  # Si aucun produit ne correspond
+        except ValueError:
+            return render_template('product_display.html', error="Invalid id")  # Si l'ID n'est pas un entier
 
-    # Affichage des produits (ou du produit filtré) dans le template HTML
-    return render_template("product_display.html", products=data)
+    # Affichage de la page avec les produits
+    return render_template('product_display.html', products=products)
 
-# Fonction auxiliaire pour lire les produits depuis une base SQLite
-def from_sql():
-    try:
-        # Connexion à la base de données SQLite
-        connexion = sqlite3.connect('products.db')
-        cursor = connexion.cursor()
-
-        # Requête SQL pour récupérer les colonnes nécessaires
-        cursor.execute('SELECT id, name, category, price FROM Products')
-        rows = cursor.fetchall()  # Récupération des résultats
-
-        connexion.close()  # Fermeture de la connexion
-
-        # Transformation des lignes SQL en liste de dictionnaires
-        products = []
-        for row in rows:
-            products.append({'id': row[0], 'name': row[1], 'category': row[2], 'price': row[3]})
-        return products
-
-    except Exception as e:
-        # En cas d'erreur, on affiche l'erreur dans la console et on retourne None
-        print(f"Database error: {e}")
-        return None
-
-# Point d'entrée de l'application Flask
-if __name__ == "__main__":
-    app.run(debug=True, port=5000)  # Lancement du serveur en mode debug sur le port 5000
+# Lancement de l'application Flask
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
