@@ -2,13 +2,64 @@
 Test Base Geometry
 """
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
->>> baseG = BaseGeometry()
->>> name = __import__("7-base_geometry").BaseGeometry.integer_validator.__doc__
-    >>> len(name) > 1
-	  True
- >>> age = __import__("7-base_geometry").BaseGeometry.__doc__
-    >>> len(age) > 1
-    True
->>> distance = __import__("7-base_geometry").__doc__
-    >>> len(distance) > 1
-    True
+>>> int = BaseGeometry.integer_validator
+
+>>> int = BaseGeometry().integer_validator
+>>> int("test", 23)
+>>> int("test", 5)
+>>> int("test", 1)
+>>> int("test", 0)
+Traceback (most recent call last):
+...
+ValueError: test must be greater than 0
+
+>>> int("test", -5)
+Traceback (most recent call last):
+...
+ValueError: test must be greater than 0
+
+>>> int("test", 3.14)
+Traceback (most recent call last):
+...
+TypeError: test must be an integer
+
+>>> int("test", "hello")
+Traceback (most recent call last):
+...
+TypeError: test must be an integer
+
+>>> base = BaseGeometry()
+>>> base.area()
+Traceback (most recent call last):
+...
+Exception: area() is not implemented
+
+>>> int()
+Traceback (most recent call last):
+...
+TypeError: integer_validator() missing 2 required positional arguments: 'name' and 'value'
+
+>>> base.int("age", True)
+Traceback (most recent call last):
+...
+TypeError: age must be an integer
+
+>>> base.int("age", (4,))
+Traceback (most recent call last):
+...
+TypeError: age must be an integer
+
+>>> base.int("age", [3])
+Traceback (most recent call last):
+...
+TypeError: age must be an integer
+
+>>> base.int("age", None)
+Traceback (most recent call last):
+...
+TypeError: age must be an integer
+
+>>> base.int("age", {3, 4})
+Traceback (most recent call last):
+...
+TypeError: age must be an integer
