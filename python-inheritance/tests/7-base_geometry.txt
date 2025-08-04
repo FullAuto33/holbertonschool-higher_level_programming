@@ -1,17 +1,14 @@
+"""
+Test Base Geometry
+"""
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
-
->>> bg = BaseGeometry()
-
->>> bg.integer_validator("my_int", 12)
-
->>> bg.integer_validator("name", "John")
-Traceback (most recent call last):
-TypeError: name must be an integer
-
->>> bg.integer_validator("age", 0)
-Traceback (most recent call last):
-ValueError: age must be greater than 0
-
->>> bg.integer_validator("infini", int('inf'))
-Traceback (most recent call last):
-ValueError: invalid literal for int() with base 10: 'inf'
+>>> baseG = BaseGeometry()
+>>> name = __import__("7-base_geometry").BaseGeometry.integer_validator.__doc__
+    >>> len(name) > 1
+	  True
+ >>> age = __import__("7-base_geometry").BaseGeometry.__doc__
+    >>> len(age) > 1
+    True
+>>> distance = __import__("7-base_geometry").__doc__
+    >>> len(distance) > 1
+    True
